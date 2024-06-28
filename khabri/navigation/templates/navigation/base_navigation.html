@@ -1,13 +1,150 @@
+{% load static %}
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    /* Custom styles for the blog card */
+    .blog-card {
+      width: 70vw;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #1f1b1b;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 10px; /* Optional: add margin around the card */
+      margin-left: 30px;
+      margin-top: 25px;
+    }
+
+    /* Adjustments for the rest of your layout */
+    .navbar-brand img {
+      width: 50px; /* Adjust this value as needed */
+      height: auto; /* Maintain aspect ratio */
+    }
+
+    .menuoptions {
+      text-decoration: none;
+      list-style: none; /* Remove default dots */
+      padding: 0; /* Remove default padding */
+      margin: 0; /* Remove default margin */
+      margin-left: 30px;
+      display: flex; /* Arrange items inline */
+    }
+
+    .menuoptions li {
+      margin-right: 30px; /* Adjust margin between items as needed */
+    }
+
+    #navigate {
+      position: sticky; /* Make the navbar sticky */
+      top: 0; /* Stick to the top of the viewport */
+      z-index: 1000; /* Ensure navbar is above other content */
+      border-color: aliceblue;
+      box-shadow: rgb(15, 15, 15) 0px 0px 5px;
+      background-color: #343a40; /* Change navbar background color */
+    }
+
+    #MainContent {
+      display: grid;
+      grid-template-columns: 200px 1fr; /* Define columns: left pane & content */
+      height: 100vh; /* Make MainContent take 100% of viewport height */
+      overflow: hidden; /* Hide overflow to prevent double scrollbars */
+    }
+
+    #Left {
+      position: sticky; /* Make the left pane sticky */
+      top: 0; /* Stick to the top of the viewport */
+      height: 100%; /* Full height of its container */
+      overflow-y: auto; /* Enable vertical scrolling */
+      border-right: 1px solid white; /* Add white border */
+      padding: 10px; /* Add padding inside border */
+      background-color: #221e1e;
+      z-index: 1; /* Ensure it's above the main content */
+    }
+
+    #JC,
+    #JC-head {
+      margin: 0px; /* Add spacing between list items */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px; /* Set a height for vertical centering */
+      border-bottom: 1px solid black; /* Add black border to each list item */
+      color: white; /* Adjust text color */
+    }
+
+    #Blog {
+      padding: 10px; /* Add padding to content area */
+      overflow-y: auto; /* Enable scrolling if content exceeds height */
+      z-index: 0; /* Ensure it's behind the left pane */
+    }
+  </style>
+</head>
+<body>
+  <div id="navigate">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'navigation/logo_temp.jpeg' %}" id="logo" alt="Logo">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Profile</a>
+            </li>
+          </ul>
+
+          <form class="d-flex ms-auto" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="MainContent">
+    <div id="Left">
+      <div id="JC-head">
+        Joined Communities
+      </div>
+      <div id="JC">
+        cOMM1
+      </div>
+      <div id="JC">
+        cOMM2
+      </div>
+    </div>
+
+    <div id="Blog">
+      <div id="blog-container" class="blog-card">
+        <h2>Author</h2>
+        <p>Date, Time</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure soluta reprehenderit, provident unde laborum voluptas, itaque culpa illum debitis earum aut placeat facere veniam saepe iste doloribus sunt ratione? Voluptatibus?Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid eaque adipisci asperiores ipsam? Placeat, accusantium, mollitia molestias porro, deleniti minima quae dolor nostrum voluptates dolorem suscipit ipsa nemo sapiente quia?
+        </p>
+        <!-- Add more content here if needed -->
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
 </html>
